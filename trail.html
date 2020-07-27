@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript - Add HTML Table Row </title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="trail.css">
+        <script>
+
+            function valid()
+            {
+                var name = document.getElementById('name').value;
+                var email = document.getElementById('email').value;
+                var male = document.getElementById('male').value;
+                var female = document.getElementById('female').value;
+                var phone = document.getElementById('phone').value;
+                var subscription = document.getElementById('subscription');
+                var textbox = document.getElementById('textbox')
+
+                var atposition  = email.indexOf("@");  
+                var dotposition = email.lastIndexOf("."); 
+
+                if (name === "") {
+                    return("PLEASE ENTER YOUR NAME!");
+                } else if (name.length<3) {
+                    alert("NAME ENTERED IS TOO SMALL!");
+                } else if (name.length>20) {
+                    return("NAME ENTERED IS TOO BIG!");
+                } else if (isNaN(name)==false){
+                    return("NAME CANNOT BE NUMERIC!");
+                } else if (email === "") {
+                    return("PLEASE ENTER YOUR EMAIL ID!");
+                } else if (atposition<1 || dotposition<atposition+2 || dotposition+2>=email.length) {
+                    return("INVALID EMAIL ID! RE-ENTER IN THIS FORMAT (xxxxx@xxxxx.com)");
+                } else if (phone === "") {
+                    return("PLEASE ENTER YOUR PHONE NUMBER!");
+                } else if (isNaN(phone)==true) {
+                    return("ENTER A VALID PHONE NUMBER (ONLY DIGITS) ");
+                } else if (phone.length !=10 ) {
+                    return("ENTER A VALID PHONE NUMBER (10 DIGITS ONLY)");
+                } else if (!(document.getElementById('male').checked) && !(document.getElementById('female').checked)) {
+                    return("SELECT A GENDER")
+                } else if (textbox === ""){
+                    return("TEXTBOX CANNOT BE EMPTY!");
+                }
+                else
+                  { return true;
+                  }
+            }
+
+          
+              function addRow()
+              {
+                if(valid() == true) {
+                  // get input values
+                  var fname = document.getElementById('name').value;
+                  var email = document.getElementById('email').value;
+                  var male = document.getElementById('male').value;
+                  var female = document.getElementById('female').value;
+                  var phone = document.getElementById('phone').value;
+                  var textbox = document.getElementById('textbox').value;
+                  var subscription = document.getElementById('subscription');
+
+                    
+                    // get the html table
+                    // 0 = the first table
+                  var table = document.getElementsByTagName('table')[0];
+                    
+
+                    var s = document.getElementById("subscription");
+                    var subs = s.options[s.selectedIndex].value;
+
+                    if (document.getElementById('male').checked) {
+                        g = document.getElementById('male').value;
+                    }
+                    else if (document.getElementById('female').checked) {
+                        g = document.getElementById('female').value;
+                    }
+                    // add new empty row to the table
+                    // 0 = in the top 
+                    // table.rows.length = the end
+                    // table.rows.length/2+1 = the center
+                    var newRow = table.insertRow(table.rows.length);
+                    
+                    // add cells to the row
+                    var cel1 = newRow.insertCell(0);
+                    var cel2 = newRow.insertCell(1);
+                    var cel3 = newRow.insertCell(2);
+                    var cel4 = newRow.insertCell(3);
+                    var cel5 = newRow.insertCell(4);
+                    var cel6 = newRow.insertCell(5);
+                    
+                    // add values to the cells
+                    cel1.innerHTML = fname;
+                    cel2.innerHTML = email;
+                    cel3.innerHTML = g;
+                    cel4.innerHTML = phone;
+                    cel5.innerHTML = subs;
+                    cel6.innerHTML = textbox;
+                    alert("Form will be submitted");
+              }
+              else {alert(valid());}
+            }
+            
+        </script>
+        
+    </head>
+
+    <body>
+    <section class="home" id="1">
+          <div class="logo">
+            <img src="Event.jpg">
+          </div>
+          <nav>
+            <ul>
+              <li><a href="#1">HOME</a></li>
+              <li><a href="#2">EVENTS</a></li>
+              <li><a href="#3">FORM</a></li>
+            </ul>
+          </nav>
+    </section>
+
+    <section class="regis" id="2">
+      <h2>FILL FORM TO REGISTER</h2>
+      <form id="registration">
+              <div class="row">
+                  <div class="col">
+                      <input type="text" id="name" placeholder="**Name"/>
+                  </div>
+                  <div class="col">
+                      <input type="text" id="email" placeholder="**Email id"/>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                <label>Gender: <span class="required"> </span> </label>
+                </div>
+                <div class="col">
+                    <input type="radio" id="male" name="gender" value="Male"> 
+                    <label for="male"> Male&nbsp; </label>
+                </div>
+                <div class="col">
+                    <input type="radio" id="female" name="gender" value="Female">
+                    <label for="female"> Female&nbsp; </label>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <input type="text" id="phone" placeholder="**Phone Number"/>                    
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                      <select name="field4" class="field-select" name="subscription" id="subscription">
+                        <option value="Premium">Premium</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Weekly">Weekly</option>
+                        <option value="Daily">Daily</option>
+                      </select>
+                  </div>
+                </div>
+                
+                <div class="row"> 
+                  <div class="col">            
+                      <input type="text" name="textbox" id="textbox" placeholder="Type your Message.."/>               
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                      <button class="btn btn-light" type="button" onclick="addRow();">Submit </button>
+                  </div>
+                </div>
+      </form>
+      </section>
+
+      <section class="eventtable" id="3">
+        <h2>EVENTS REGISTERED</h2>
+        <table border="1">
+            
+            <thead>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>Phone</th>
+              <th>Subscription</th>
+              <th>Message</th>
+            </thead>
+        </table>
+      </section>
+
+    </body>
+
+</html>
